@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, Button, View } from "react-native";
+import { StyleSheet, Text, Button, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function RoutineListScreen({ navigation }: any) {
@@ -10,6 +10,11 @@ export default function RoutineListScreen({ navigation }: any) {
         title="Ver rutina de pecho"
         color="#be6532"
         onPress={() => navigation.navigate("ChestDetail")}
+      />
+      <Button
+        title="Iniciar Rutina"
+        color="#be6532"
+        onPress={() => Alert.alert("Iniciando Rutina")}
       />
     </SafeAreaView>
   );
