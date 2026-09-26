@@ -1,3 +1,4 @@
+import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ProgressListScreen from "../screens/ProgressListScreen";
 import RoutineListScreen from "../screens/RoutineListScreen";
@@ -10,27 +11,40 @@ export default function TabNavigator() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName: any = "list";
+          let iconName: any = "barbell";
           if (route.name === "ProgressTab") {
             iconName = focused ? "stats-chart" : "stats-chart-outline";
           } else if (route.name === "RoutineTab") {
-            iconName = focused ? "barbell" : "barbell-outline";
+            iconName = focused ? "flash" : "flash-outline";
           }
-          return <Ionicons name={iconName} size={size} color={color} />;
+          return <Ionicons name={iconName} size={size ?? 22} color={color} />;
         },
-        tabBarActiveTintColor: "#f36e21",
-        tabBarInactiveTintColor: "gray",
+        tabBarActiveTintColor: "#D2FF00", // Volt Neon
+        tabBarInactiveTintColor: "#64748B",
+        tabBarStyle: {
+          backgroundColor: "#151C28",
+          borderTopColor: "rgba(255,255,255,0.06)",
+          borderTopWidth: 1,
+          height: 65,
+          paddingBottom: 10,
+          paddingTop: 8,
+        },
+        tabBarLabelStyle: {
+          fontSize: 11,
+          fontWeight: "700",
+          letterSpacing: 0.5,
+        },
       })}
     >
       <Tab.Screen
-        name="ProgressTab"
-        component={ProgressListScreen}
-        options={{ title: "Progreso", headerShown: false }}
-      />
-      <Tab.Screen
         name="RoutineTab"
         component={RoutineListScreen}
-        options={{ title: "Rutinas", headerShown: false }}
+        options={{ title: "RUTINAS", headerShown: false }}
+      />
+      <Tab.Screen
+        name="ProgressTab"
+        component={ProgressListScreen}
+        options={{ title: "PROGRESO", headerShown: false }}
       />
     </Tab.Navigator>
   );

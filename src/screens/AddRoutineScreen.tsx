@@ -23,7 +23,6 @@ export default function AddRoutineScreen({ navigation, route }: any) {
   const [muscleGroup, setMuscleGroup] = useState("");
   const [durationString, setDurationString] = useState("");
 
-  // Efecto para pre-llenar los inputs si estamos en modo edición
   useEffect(() => {
     if (idToEdit) {
       const routineFound = routines.find((r) => r.id === idToEdit);
@@ -37,13 +36,16 @@ export default function AddRoutineScreen({ navigation, route }: any) {
 
   const handleSave = () => {
     if (!name.trim() || !durationString.trim() || !muscleGroup.trim()) {
-      Alert.alert("Error", "Todos los campos obligatorios (*) son requeridos");
+      Alert.alert("CAMPOS INCOMPLETOS", "Por favor completa todos los campos.");
       return;
     }
 
     const durationNumber = parseFloat(durationString);
     if (isNaN(durationNumber) || durationNumber <= 0) {
-      Alert.alert("Error", "La duración debe ser un número válido mayor a 0");
+      Alert.alert(
+        "DURACIÓN INVÁLIDA",
+        "Ingresa una duración numérica mayor a 0.",
+      );
       return;
     }
 
@@ -66,19 +68,19 @@ export default function AddRoutineScreen({ navigation, route }: any) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#0f172a" />
+      <StatusBar barStyle="light-content" backgroundColor="#0B0F17" />
 
-      {/* Encabezado Superior */}
+      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity
-          style={styles.headerIconButton}
+          style={styles.backButton}
           activeOpacity={0.7}
           onPress={() => navigation.goBack()}
         >
-          <Ionicons name="arrow-back" size={24} color="#f8fafc" />
+          <Ionicons name="arrow-back" size={22} color="#F8FAFC" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>
-          {idToEdit ? "Editar Rutina" : "Nueva Rutina"}
+          {idToEdit ? "EDITAR RUTINA" : "NUEVA RUTINA"}
         </Text>
         <View style={{ width: 40 }} />
       </View>
@@ -91,59 +93,58 @@ export default function AddRoutineScreen({ navigation, route }: any) {
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
         >
-          {/* Tarjeta de Formulario */}
           <View style={styles.formCard}>
-            {/* Campo: Nombre de la Rutina */}
+            {/* Campo Nombre */}
             <View style={styles.inputGroup}>
-              <Text style={styles.label}>Nombre de la Rutina *</Text>
+              <Text style={styles.label}>NOMBRE DE LA RUTINA</Text>
               <TextInput
                 style={styles.input}
                 value={name}
                 onChangeText={setName}
-                placeholder="Ej. Pecho y Tríceps"
-                placeholderTextColor="#64748b"
+                placeholder="Ej. Espalda y Biceps Heavy"
+                placeholderTextColor="#475569"
               />
             </View>
 
-            {/* Campo: Grupo Muscular */}
+            {/* Campo Grupo Muscular */}
             <View style={styles.inputGroup}>
-              <Text style={styles.label}>Grupo Muscular *</Text>
+              <Text style={styles.label}>GRUPO MUSCULAR</Text>
               <TextInput
                 style={styles.input}
                 value={muscleGroup}
                 onChangeText={setMuscleGroup}
-                placeholder="Ej. Pecho / Brazos / Espalda"
-                placeholderTextColor="#64748b"
+                placeholder="Ej. Espalda / Tríceps"
+                placeholderTextColor="#475569"
               />
             </View>
 
-            {/* Campo: Duración */}
+            {/* Campo Duración */}
             <View style={styles.inputGroup}>
-              <Text style={styles.label}>Duración (minutos) *</Text>
+              <Text style={styles.label}>DURACIÓN ESTIMADA (MINUTOS)</Text>
               <TextInput
                 style={styles.input}
                 value={durationString}
                 onChangeText={setDurationString}
                 keyboardType="numeric"
-                placeholder="Ej. 45"
-                placeholderTextColor="#64748b"
+                placeholder="Ej. 60"
+                placeholderTextColor="#475569"
               />
             </View>
           </View>
 
-          {/* Botón de Acción */}
+          {/* Botón Principal */}
           <TouchableOpacity
             style={styles.saveButton}
-            activeOpacity={0.8}
+            activeOpacity={0.85}
             onPress={handleSave}
           >
             <Ionicons
-              name={idToEdit ? "save-outline" : "add-circle-outline"}
-              size={22}
-              color="#ffffff"
+              name={idToEdit ? "checkmark-circle" : "flash"}
+              size={20}
+              color="#0B0F17"
             />
             <Text style={styles.saveButtonText}>
-              {idToEdit ? "Actualizar Rutina" : "Guardar Rutina"}
+              {idToEdit ? "GUARDAR CAMBIOS" : "CREAR RUTINA"}
             </Text>
           </TouchableOpacity>
         </ScrollView>
@@ -155,7 +156,7 @@ export default function AddRoutineScreen({ navigation, route }: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0f172a",
+    backgroundColor: "#0B0F17",
   },
   header: {
     flexDirection: "row",
@@ -164,68 +165,74 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 16,
     borderBottomWidth: 1,
-    borderBottomColor: "#1e293b",
+    borderBottomColor: "#151C28",
   },
   headerTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#f8fafc",
+    fontSize: 16,
+    fontWeight: "900",
+    color: "#F8FAFC",
+    letterSpacing: 1.2,
   },
-  headerIconButton: {
+  backButton: {
     width: 40,
     height: 40,
     borderRadius: 12,
-    backgroundColor: "#1e293b",
+    backgroundColor: "#151C28",
     justifyContent: "center",
     alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#263346",
   },
   content: {
-    padding: 20,
-    gap: 20,
+    padding: 22,
+    gap: 22,
   },
   formCard: {
-    backgroundColor: "#1e293b",
+    backgroundColor: "#151C28",
     borderRadius: 20,
-    padding: 20,
+    padding: 22,
     borderWidth: 1,
-    borderColor: "#334155",
-    gap: 16,
+    borderColor: "#263346",
+    gap: 18,
   },
   inputGroup: {
     gap: 8,
   },
   label: {
-    fontSize: 14,
-    fontWeight: "600",
-    color: "#94a3b8",
+    fontSize: 11,
+    fontWeight: "800",
+    color: "#94A3B8",
+    letterSpacing: 1,
   },
   input: {
-    backgroundColor: "#0f172a",
+    backgroundColor: "#0B0F17",
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: "#334155",
+    borderColor: "#263346",
     paddingHorizontal: 16,
-    paddingVertical: 12,
-    fontSize: 16,
-    color: "#f8fafc",
+    paddingVertical: 14,
+    fontSize: 15,
+    fontWeight: "600",
+    color: "#F8FAFC",
   },
   saveButton: {
-    backgroundColor: "#6366f1",
+    backgroundColor: "#D2FF00",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    gap: 8,
-    paddingVertical: 16,
-    borderRadius: 14,
-    elevation: 4,
-    shadowColor: "#6366f1",
-    shadowOffset: { width: 0, height: 4 },
+    gap: 10,
+    paddingVertical: 18,
+    borderRadius: 16,
+    shadowColor: "#D2FF00",
+    shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.3,
-    shadowRadius: 6,
+    shadowRadius: 10,
+    elevation: 6,
   },
   saveButtonText: {
-    color: "#ffffff",
-    fontSize: 16,
-    fontWeight: "700",
+    color: "#0B0F17",
+    fontSize: 15,
+    fontWeight: "900",
+    letterSpacing: 1,
   },
 });
