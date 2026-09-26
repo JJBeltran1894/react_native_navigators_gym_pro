@@ -10,11 +10,11 @@ export default function TabNavigator() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName: any = "List";
-          if (route.name === "ProgresoTab") {
-            iconName = focused ? "progress-check" : "progress-check-outline";
-          } else if (route.name === "PerfilTab") {
-            iconName = focused ? "route" : "route-outline";
+          let iconName: any = "list";
+          if (route.name === "ProgressTab") {
+            iconName = focused ? "stats-chart" : "stats-chart-outline";
+          } else if (route.name === "RoutineTab") {
+            iconName = focused ? "barbell" : "barbell-outline";
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
