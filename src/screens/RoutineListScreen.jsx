@@ -2,10 +2,15 @@ import React from "react";
 import { StyleSheet, Text, Button, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function RoutineListScreen() {
+export default function RoutineListScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.text}>Lista de rutinas</Text>
+      <Button
+        title="Ver rutina de pecho"
+        color="#be6532"
+        onPress={() => navigation.navigate("ChestDetail")}
+      />
     </SafeAreaView>
   );
 }
